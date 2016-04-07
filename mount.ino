@@ -1,48 +1,6 @@
 #include <avr/sleep.h>
 #include <avr/power.h>
-
-/* ============== Description ================ */
-
-/* Stepper can only be put to sleep mode every
-   four full steps, otherwise it will fall back
-   the next time sleep is deactivated.
-   
-   The mount-gear has 100 teeth, so a rate of
-   1:100 is applied to the angular velocity.
-   
-   To achieve the desired angular velocity of
-   7.292115E-5 rad/s or 0.004178 deg/s the motor
-   has to turn 100 times faster, with 
-   w_m = 0.4178 deg/s.
-   
-   Each step of the motor is 1.8°, so four steps
-   are equal to phi = 7.2°.
-   
-   phi / w_m = 17.232820127s is the time, after
-   which the stepper has to move four steps forward.
-   
-   Because timer1 can only reach a delay of about
-   8 seconds, several timer interrupts have to occur
-   and a counter is required. The chosen solution is
-   to have an interrupt every 3.446592s, which
-   results in 4.9999 iterations for 17.2... seconds.
-   
-   This means for timer1: Prescaler:      1024
-                          Compare-Value: 53852
-                          
-   To conserve power, the stepper is put to sleep
-   whenever it is not moving, and the arduino is
-   put in a power-saving mode (IDLE). Lower modes
-   are not possible because then timer1 would stop.
-   
-   A manual switch is incorporated to allow the user
-   to stop the motor from turning.
-   
-   The entire code is interrupt-driven. The main loop
-   is only used to put the device to sleep once there
-   is no more interrupt-code to be computed.
-
-
+#include <Encoder.h>
 
 
 
@@ -64,181 +22,172 @@
 
 
 
+/* ============== Description ================ */
+
+/* Software now incorporates encoder feedback.
+   Based on the same timer1 interrupt timing as
+   v0.1, the interrupt now only increases a
+   counter. The rest is done in the main loop in
+   order to allow encoder- and other interrupts to
+   work propperly. They are not detected while the
+   ardu is handling an interrupt vector.
+   
+   STEPPER PINNING CHANGED!
+   
+   Every 17.2s the desired angular position is
+   increased by 7.2°. Using the encoder data, the
+   current position is obtained and the error
+   between the two is calculated. This error is 
+   then used to determine how many 4-step-groups
+   the motor has to advance.
+   
+   If the desired position can not be reached, the
+   software will enter an indefinite error loop that
+   will flash the on-board LED. Camera-control and 
+   battery-checking are not yet implemented.
+   
+   To minimize vibrations in the mount, the stepper
+   increased speed for two full steps and then breaks
+   for two steps at the end. In between it moves fast.
+   This makes doSteps only viable for a count that is
+   a multiple of 4.
+
+
+
+
 
 /* =============== Variables ================= */
 
 short counter = 0;    // counting timer-interrupts
+Encoder enc(2,3);     // encoder connected to pins
+                      // 2 and 3
+                      
+float desPosDeg = 0;  // Desired angular position [deg]
+float errPosDeg = 0;  // Error in ang. position [deg]
 
+int stepGrps = 0;     // Number of 4-step groups required
+int retryCounter = 0; // Number of times reaching the
+                      // desired position has been tried
+                      
+                      
+                      
+/* ================= Setup ================== */
 
-
-
-
-/* ================ Program ================= */
-
-void stepperSetup()
-{
-  // Set all above pins as output
-  pinMode(ENABLE, OUTPUT);
-  pinMode(SLP, OUTPUT);
-  pinMode(MS1, OUTPUT);
-  pinMode(MS2, OUTPUT);
-  pinMode(STEP, OUTPUT);
-  pinMode(DIR, OUTPUT);
-  
-  // Disable driver first
-  digitalWrite(ENABLE, HIGH);
-  
-  // Hold device in sleep
-  digitalWrite(SLP, LOW);
-  
-  // Set microstepping
-  #if defined FULL
-    digitalWrite(MS1, LOW);
-    digitalWrite(MS2, LOW);
-  #elseif defined HALF
-    digitalWrite(MS1, HIGH);
-    digitalWrite(MS2, LOW);
-  #elseif defined QUARTER
-    digitalWrite(MS1, LOW);
-    digitalWrite(MS2, HIGH);
-  #else
-    digitalWrite(MS1, HIGH);
-    digitalWrite(MS2, HIGH);
-  #endif
-  
-  // Reset step
-  digitalWrite(STEP, LOW);
-  
-  // Enable device (still in sleep)
-  digitalWrite(ENABLE, LOW);
-}
-
-
-void pciSetup(byte pin)
-{
-    *digitalPinToPCMSK(pin) |= bit (digitalPinToPCMSKbit(pin));  // enable pin
-    PCIFR  |= bit (digitalPinToPCICRbit(pin)); // clear any outstanding interrupt
-    PCICR  |= bit (digitalPinToPCICRbit(pin)); // enable interrupt for the group
-}
-
-void powerSetup()
-{
-  
-   /* Disable all of the unused peripherals. This will reduce power
-   * consumption further and, more importantly, some of these
-   * peripherals may generate interrupts that will wake our Arduino from
-   * sleep!
-   */
-   
-  power_adc_disable();
-  power_spi_disable();
-  power_timer0_disable();
-  power_timer2_disable();
-  power_twi_disable();  
-
-}
-
+/* Prepare the EasyDriver for the stepper, set
+   up timer1 to generate the required interrupts
+   and configure pins for the mechanical switch */
 
 void setup()
 {
   stepperSetup();
   
-  powerSetup();
+  timerSetup();
   
-  /* Setup Pin 6 as interrupt on change
-     pin, so that the external clock 
-     board can be used. */
-  pinMode(6, INPUT);
-  pciSetup(6);
-  
-  /* Setup for manual switch; Pin 5 is
-    driven to LOW, pin 7 is pulled up
-    internally. The switch will connect
-    pins 5 and 7 and thus pull 7 to LOW
-    when active. */
-  pinMode(5, OUTPUT);
-  pinMode(7, INPUT_PULLUP);
-  digitalWrite(5, LOW);
+  switchSetup();
 }
 
 
 
-void doStep(int count)
-{
-  // sanity check
-  if (count == 0 || count > 200)
-  {
-    return;
-  }
-  
-  // Set turn direction depending on count sign
-  if (count > 0)
-  {
-    digitalWrite(DIR, HIGH);
-  }
-  else
-  {
-    count = count * (-1);
-    digitalWrite(DIR, LOW);
-  }
-  
-  // Calculate number of steps required based on
-  // chosen microstepping setting
-  #if defined FULL
-    count = count;      // no multiplier needed
-  #elseif defined HALF
-    count = count * 2;  // two microsteps per step
-  #elseif defined QUARTER
-    count = count * 4;  // four microsteps per step
-  #else
-    count = count * 8;  // eight microsteps per step
-  #endif
-  
-  // Turn off stdby
-  digitalWrite(SLP, HIGH);
- 
-  // Do calculated number of steps
-  for (int i = 0; i < count; i++)
-  {
-    // Trigger one step
-    digitalWrite(STEP, HIGH);
-    delayMicroseconds(5000);
-    digitalWrite(STEP, LOW);
-    delayMicroseconds(5000);
-  }
-  
-  // Turn on stdby
-  digitalWrite(SLP, LOW);
-  
-}
+/* =========== Timer1 Interrupt ============= */
 
-
+/* Every 5th time the interrupt occurs, the
+   interrupt counter has to be increased by
+   one. This interrupt will wake the device
+   from sleep and cause the main loop to be
+   run. There, the rest of the program is
+   handled. */
    
-ISR(PCINT2_vect)
+ISR(TIMER1_COMPA_vect)
 {
   counter++;
-  
-  if (counter == 1)
-  {
-    
-    doStep(4);
-    
-    counter = 0;
-  }
 }
 
+
+
+
+
+/* =============== Main Loop ================ */
+
+/* First two forks are switched in order compared
+   to the paper layout. This is to allow the
+   switch to be checked every 3.4s instead of 
+   every 17s. */
 
 void loop()
 {
-  /* Choose sleep mode */
-  set_sleep_mode(SLEEP_MODE_IDLE);
+  if (switchedOn())
+  { // SWITCH IS ON
   
-  sleep_enable();
-
-  /* Now enter sleep mode. */
-  sleep_mode();
+    if (counter >= 5)
+    { // COUNTER IS >= 5
+    
+      // Reset counter
+      counter = 0;
+      
+      // Increase desired angular position
+      desPosDeg += 7.2;
+      
+      // Calc angular error based on current position
+      errPosDeg = getAngularError();
+      
+      // Try to reach the desired position 3 times
+      while (1==1)
+      {
+        
+        // Calc how many groups of four full steps
+        // are required to reach the desired pos-
+        // ition.
+        stepGrps = round(errPosDeg / 7.2);
+        
+        // Advance the calculated steps
+        doSteps(stepGrps * 4);
+        
+        // Calc angular error again
+        errPosDeg = getAngularError();
+        
+        // Check if desired position is reached
+        if (errPosDeg < 7.2)
+        { // YES
+          
+          // Reset retry counter
+          retryCounter = 0;
+          
+          // End while loop
+          break;
+        }
+        
+        // Position is NOT reached, to increment
+        // retry counter
+        retryCounter++;
+        
+        // Check if this was already the third 
+        // attempt to reach the position.
+        if (retryCounter >=3)
+        { // YES
+          
+          // Disable stepper driver
+          digitalWrite(ENABLE, HIGH);
+          
+          // Enter indefinite error loop
+          while (1==1)
+          {
+            // Blink LED on pin 13
+            digitalWrite(13, HIGH);
+            delayms(200);
+            digitalWrite(13, LOW);
+            delayms(200);
+          }
+        } // NO: Try again
+       
+      } // End of retry loop
+    } // End of counter if
+  } // End of switchedOn if
   
-  /* The program will continue from here after the timer timeout*/
-  sleep_disable(); /* First thing to do is disable sleep. */
-
+  else
+  { // SWITCH IS OFF
+  
+    resetPositions();  
+  }
+  
+  sleep();
 }
