@@ -3,11 +3,7 @@
 
 /* ============== Description ================ */
 
-/* HIGH POWER VERSION - NO SLEEP FOR STEPPER, IT
-   IS ALWAYS ON AND PERFORMS ONE FULL STEP ON 
-   EVERY TIMER INTERRUPT.
-
-   Stepper can only be put to sleep mode every
+/* Stepper can only be put to sleep mode every
    four full steps, otherwise it will fall back
    the next time sleep is deactivated.
    
@@ -118,26 +114,15 @@ void stepperSetup()
 }
 
 
-void timerSetup()
+void pciSetup(byte pin)
 {
-  cli();//stop interrupts
+    *digitalPinToPCMSK(pin) |= bit (digitalPinToPCMSKbit(pin));  // enable pin
+    PCIFR  |= bit (digitalPinToPCICRbit(pin)); // clear any outstanding interrupt
+    PCICR  |= bit (digitalPinToPCICRbit(pin)); // enable interrupt for the group
+}
 
-  //set timer1 interrupt at 1Hz
-  TCCR1A = 0;// set entire TCCR1A register to 0
-  TCCR1B = 0;// same for TCCR1B
-  TCNT1  = 0;//initialize counter value to 0
-  // set compare match register
-  OCR1A = 53852;
-  // turn on CTC mode
-  TCCR1B |= (1 << WGM12);
-  // Set CS12 and CS10 bits for 1024 prescaler
-  TCCR1B |= (1 << CS12) | (1 << CS10);  
-  // enable timer compare interrupt
-  TIMSK1 |= (1 << OCIE1A);
-
-
-  sei();//allow interrupts
-  
+void powerSetup()
+{
   
    /* Disable all of the unused peripherals. This will reduce power
    * consumption further and, more importantly, some of these
@@ -158,7 +143,13 @@ void setup()
 {
   stepperSetup();
   
-  timerSetup();
+  powerSetup();
+  
+  /* Setup Pin 6 as interrupt on change
+     pin, so that the external clock 
+     board can be used. */
+  pinMode(6, INPUT);
+  pciSetup(6);
   
   /* Setup for manual switch; Pin 5 is
     driven to LOW, pin 7 is pulled up
@@ -217,28 +208,21 @@ void doStep(int count)
   }
   
   // Turn on stdby
-  // digitalWrite(SLP, LOW);
+  digitalWrite(SLP, LOW);
   
 }
 
 
-// Timer 1 compare interrupt
-
-/* Every 5th time the interrupt occurs, the
-   stepper has to move forward four full
-   steps. DigitalRead on pin 7 is used to 
-   determine the state of the manual switch. */
    
-ISR(TIMER1_COMPA_vect)
+ISR(PCINT2_vect)
 {
   counter++;
   
   if (counter == 1)
   {
-    if (digitalRead(7) == LOW)
-    {
-      doStep(1);
-    }
+    
+    doStep(4);
+    
     counter = 0;
   }
 }
