@@ -13,6 +13,23 @@
 // Quarz clock pins
 #define FREQ       6
 
+/*                DESCRIPTION
+
+Even the smallest possible stepping of the stepper-motor 
+is still to big for astrophotography, because there is no 
+gear in between the motor and the worm-axis. Therefore 
+replaced by dc motor with a gear. System is now in full 
+feedback control loop with PI controller based on 
+experiments and a MATLAB model. Sensor is still 256-tick 
+encoder directly mounted to worm-axis.
+
+Arduino now outputs a steady stream of controller info 
+such as desired vs measured position etc. on serial on 
+115200 baud. It also measures the battery voltage via
+an analog in hooked to a voltage divider to determine
+when the connected battery is empty. It then stops
+automatically and goes to deep sleep. */
+
 
 #include <avr/sleep.h>
 #include <avr/power.h>
