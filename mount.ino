@@ -3,7 +3,11 @@
 
 /* ============== Description ================ */
 
-/* Stepper can only be put to sleep mode every
+/* HIGH POWER VERSION - NO SLEEP FOR STEPPER, IT
+   IS ALWAYS ON AND PERFORMS ONE FULL STEP ON 
+   EVERY TIMER INTERRUPT.
+
+   Stepper can only be put to sleep mode every
    four full steps, otherwise it will fall back
    the next time sleep is deactivated.
    
@@ -213,7 +217,7 @@ void doStep(int count)
   }
   
   // Turn on stdby
-  digitalWrite(SLP, LOW);
+  // digitalWrite(SLP, LOW);
   
 }
 
@@ -229,11 +233,11 @@ ISR(TIMER1_COMPA_vect)
 {
   counter++;
   
-  if (counter == 5)
+  if (counter == 1)
   {
     if (digitalRead(7) == LOW)
     {
-      doStep(4);
+      doStep(1);
     }
     counter = 0;
   }
