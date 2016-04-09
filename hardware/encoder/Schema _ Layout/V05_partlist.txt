@@ -1,0 +1,23 @@
+Partlist
+
+Exported from V05.brd at 01.12.2014 11:20:07
+
+EAGLE Version 7.1.0 Copyright (c) 1988-2014 CadSoft
+
+Assembly variant: 
+
+Part     Value                         Package  Library  Position (mil)        Orientation
+
+C3       AVX 0.1u 100V 1210            C1210    rcl      (450 100)             R180
+C4       KEMET 4.7u 25V 1210           C1210    rcl      (250 100)             R180
+LED1     LG_T67K-H2-K1-24-Z green 1.8V PLCC2    led      (250 275)             MR180
+PAD4                                   1,6/0,8  wirepad  (600 475)             R0
+PAD5                                   1,6/0,8  wirepad  (600 350)             R0
+PAD6                                   1,6/0,8  wirepad  (600 225)             R0
+PAD7                                   1,6/0,8  wirepad  (100 475)             R0
+PAD8                                   1,6/0,8  wirepad  (100 225)             R0
+PAD9                                   1,6/0,8  wirepad  (100 350)             R0
+R2       MULTICORP 2010 1.2k           R2010    rcl      (450 275)             MR90
+SJ1                                    SJ_2     jumper   (350 475)             MR0
+SV1                                    MA04-1   con-lstb (350 600)             MR0
+U$1      AS5035                        TSSOP-16 keysie   (350 350)             R180
