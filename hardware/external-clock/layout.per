@@ -1,0 +1,195 @@
+[Version]
+Product,2
+File,18
+{
+"Config" : {
+  "NetImportFormat" : "Protel"
+},
+"Board" : {
+  "Width" : 57,
+  "Height" : 32,
+  "Pattern" : "Strip"
+},
+"CelledOutlines" : [
+  { "Name" : "C", "Locked" : true,
+    "Rows" : [
+    [{"Pin" : "1"}],
+    ["Body"],
+    [{"Pin" : "2"}]
+    ]
+  },
+  { "Name" : "ICSP", "Locked" : true,
+    "Rows" : [
+    [{"Pin" : "Vpp"}],
+    [{"Pin" : "Vdd"}],
+    [{"Pin" : "Vss"}],
+    [{"Pin" : "PGD"}],
+    [{"Pin" : "PGC"}]
+    ]
+  },
+  { "Name" : "PIC18", "Locked" : true,
+    "Rows" : [
+    [{"Pin" : "1"},"Body","Body",{"Pin" : "20"}],
+    [{"Pin" : "2"},"Body","Body",{"Pin" : "19"}],
+    [{"Pin" : "3"},"Body","Body",{"Pin" : "18"}],
+    [{"Pin" : "4"},"Body","Body",{"Pin" : "17"}],
+    [{"Pin" : "5"},"Body","Body",{"Pin" : "16"}],
+    [{"Pin" : "6"},"Body","Body",{"Pin" : "15"}],
+    [{"Pin" : "7"},"Body","Body",{"Pin" : "14"}],
+    [{"Pin" : "8"},"Body","Body",{"Pin" : "13"}],
+    [{"Pin" : "9"},"Body","Body",{"Pin" : "12"}],
+    [{"Pin" : "10"},"Body","Body",{"Pin" : "11"}]
+    ]
+  },
+  { "Name" : "Quarz-Osc", "Locked" : true,
+    "Rows" : [
+    [{"Pin" : "1"},"Body","Body",{"Pin" : "14"}],
+    ["Body","Body","Body","Body"],
+    ["Body","Body","Body","Body"],
+    ["Body","Body","Body","Body"],
+    ["Body","Body","Body","Body"],
+    ["Body","Body","Body","Body"],
+    [{"Pin" : "7"},"Body","Body",{"Pin" : "8"}]
+    ]
+  },
+  { "Name" : "single_pin", "Locked" : true,
+    "Rows" : [
+    [{"Pin" : "1"}]
+    ]
+  }
+],
+"LeadedOutlines" : [
+],
+"RadialOutlines" : [
+],
+"CustomOutlines" : [
+  { "Name" : "Diode_4", "Locked" : true,
+    "Pins" : [
+    { "Name" : "1", "X5" : 2, "Y5" : 2 }
+    ],
+    "Lines" : [
+    { "X5" : 0, "Y5" : 13, "DX5" : 4, "DY5" : 0},
+    { "X5" : 2, "Y5" : 13, "DX5" : 2, "DY5" : -3},
+    { "X5" : 2, "Y5" : 13, "DX5" : -2, "DY5" : -3},
+    { "X5" : 0, "Y5" : 10, "DX5" : 4, "DY5" : 0},
+    { "X5" : 2, "Y5" : 2, "DX5" : 0, "DY5" : 20}
+    ]
+  },
+  { "Name" : "Diode_5", "Locked" : true,
+    "Pins" : [
+    { "Name" : "1", "X5" : 2, "Y5" : 2 },
+    { "Name" : "1", "X5" : 2, "Y5" : 27 }
+    ],
+    "Lines" : [
+    { "X5" : 2, "Y5" : 2, "DX5" : 0, "DY5" : 25},
+    { "X5" : 0, "Y5" : 16, "DX5" : 4, "DY5" : 0},
+    { "X5" : 2, "Y5" : 16, "DX5" : 2, "DY5" : -3},
+    { "X5" : 2, "Y5" : 16, "DX5" : -2, "DY5" : -3},
+    { "X5" : 0, "Y5" : 13, "DX5" : 4, "DY5" : 0}
+    ]
+  },
+  { "Name" : "Resistor", "Locked" : true,
+    "Pins" : [
+    { "Name" : "1", "X5" : 2, "Y5" : 22 }
+    ],
+    "Lines" : [
+    { "X5" : 0, "Y5" : 8, "DX5" : 4, "DY5" : 0},
+    { "X5" : 0, "Y5" : 8, "DX5" : 0, "DY5" : 8},
+    { "X5" : 0, "Y5" : 16, "DX5" : 4, "DY5" : 0},
+    { "X5" : 4, "Y5" : 16, "DX5" : 0, "DY5" : -8},
+    { "X5" : 2, "Y5" : 8, "DX5" : 0, "DY5" : -6},
+    { "X5" : 2, "Y5" : 16, "DX5" : 0, "DY5" : 6}
+    ]
+  }
+],
+"SmdOutlines" : [
+],
+"Components" : [
+  { "Designator" : "C1", "Value" : "10nF", "Outline" : "C",
+  "X1000" : 23000, "Y1000" : 4000, "EndDeltaX" : 0, "EndDeltaY" : 1,
+  "Text" : { "X" : 0, "Y" : -1, "Angle" : 0, "Visible" : true },
+  "Group" : 0
+  },
+  { "Designator" : "D1", "Value" : "4007", "Outline" : "Diode_4",
+  "X1000" : 18000, "Y1000" : 2000, "EndDeltaX" : 0, "EndDeltaY" : 4,
+  "Text" : { "X" : 0, "Y" : -1, "Angle" : 0, "Visible" : true },
+  "Group" : 0
+  },
+  { "Designator" : "D2", "Value" : "4007", "Outline" : "Diode_5",
+  "X1000" : 20000, "Y1000" : 2000, "EndDeltaX" : 0, "EndDeltaY" : 5,
+  "Text" : { "X" : 0, "Y" : 6, "Angle" : 0, "Visible" : true },
+  "Group" : 0
+  },
+  { "Designator" : "IC1", "Value" : "PIC18F13K22", "Outline" : "PIC18",
+  "X1000" : 23000, "Y1000" : 7000, "EndDeltaX" : 0, "EndDeltaY" : 1,
+  "Text" : { "X" : 2, "Y" : 10, "Angle" : 0, "Visible" : true },
+  "Group" : 0
+  },
+  { "Designator" : "Q1", "Value" : "1.0000 MHZ", "Outline" : "Quarz-Osc",
+  "X1000" : 13000, "Y1000" : 2000, "EndDeltaX" : 0, "EndDeltaY" : 1,
+  "Text" : { "X" : 2, "Y" : 7, "Angle" : 0, "Visible" : true },
+  "Group" : 0
+  },
+  { "Designator" : "R1", "Value" : "20k", "Outline" : "Resistor",
+  "X1000" : 18000, "Y1000" : 6000, "EndDeltaX" : 0, "EndDeltaY" : 4,
+  "Text" : { "X" : 0, "Y" : 5, "Angle" : 0, "Visible" : true },
+  "Group" : 0
+  },
+  { "Designator" : "X1", "Value" : "VCC", "Outline" : "single_pin",
+  "X1000" : 4000, "Y1000" : 4000, "EndDeltaX" : 0, "EndDeltaY" : 1,
+  "Text" : { "X" : -2, "Y" : 0, "Angle" : 0, "Visible" : true },
+  "Group" : 0
+  },
+  { "Designator" : "X2", "Value" : "GND", "Outline" : "single_pin",
+  "X1000" : 4000, "Y1000" : 6000, "EndDeltaX" : 0, "EndDeltaY" : 1,
+  "Text" : { "X" : -2, "Y" : 0, "Angle" : 0, "Visible" : true },
+  "Group" : 0
+  },
+  { "Designator" : "X3", "Value" : "SIGNAL", "Outline" : "single_pin",
+  "X1000" : 4000, "Y1000" : 9000, "EndDeltaX" : 0, "EndDeltaY" : 1,
+  "Text" : { "X" : -2, "Y" : 0, "Angle" : 0, "Visible" : true },
+  "Group" : 0
+  },
+  { "Designator" : "X4", "Value" : "ICSP", "Outline" : "ICSP",
+  "X1000" : 10000, "Y1000" : 10000, "EndDeltaX" : 0, "EndDeltaY" : 1,
+  "Text" : { "X" : 0, "Y" : 5, "Angle" : 0, "Visible" : true },
+  "Group" : 0
+  }
+],
+"Links" : [
+  { "X" : 7, "Y" : 7, "EndDeltaX" : 0, "EndDeltaY" : 4, "Group" : 0 },
+  { "X" : 6, "Y" : 6, "EndDeltaX" : 0, "EndDeltaY" : 2, "Group" : 0 },
+  { "X" : 8, "Y" : 6, "EndDeltaX" : 0, "EndDeltaY" : 6, "Group" : 0 },
+  { "X" : 25, "Y" : 2, "EndDeltaX" : 0, "EndDeltaY" : 2, "Group" : 0 },
+  { "X" : 27, "Y" : 6, "EndDeltaX" : 0, "EndDeltaY" : 1, "Group" : 0 }
+],
+"Breaks" : [
+  { "X" : 24, "Y" : 7, "Shift" : "none", "Group" : 0 },
+  { "X" : 24, "Y" : 8, "Shift" : "none", "Group" : 0 },
+  { "X" : 24, "Y" : 9, "Shift" : "none", "Group" : 0 },
+  { "X" : 24, "Y" : 10, "Shift" : "none", "Group" : 0 },
+  { "X" : 24, "Y" : 11, "Shift" : "none", "Group" : 0 },
+  { "X" : 24, "Y" : 12, "Shift" : "none", "Group" : 0 },
+  { "X" : 24, "Y" : 13, "Shift" : "none", "Group" : 0 },
+  { "X" : 24, "Y" : 14, "Shift" : "none", "Group" : 0 },
+  { "X" : 24, "Y" : 15, "Shift" : "none", "Group" : 0 },
+  { "X" : 24, "Y" : 16, "Shift" : "none", "Group" : 0 },
+  { "X" : 14, "Y" : 8, "Shift" : "none", "Group" : 0 }
+],
+"Wires" : [
+    { "Value" : "PGD", "X" : 27, "Y" : 8, "Group" : 0 },
+    { "Value" : "PGD", "X" : 15, "Y" : 13, "Group" : 0 },
+    { "Value" : "PGC", "X" : 15, "Y" : 14, "Group" : 0 },
+    { "Value" : "PGC", "X" : 27, "Y" : 9, "Group" : 0 }
+],
+"Nets" : [
+],
+"NetColors" : [
+    { "Node" : "" },
+    { "Node" : "" },
+    { "Node" : "" },
+    { "Node" : "" },
+    { "Node" : "" },
+    { "Node" : "" }
+]
+}
