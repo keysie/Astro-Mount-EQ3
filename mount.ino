@@ -5,14 +5,28 @@
 #define PWMA 10
 
 // Encoder pins
-#define ENCA     2
-#define ENCB     3
+#define ENCA     2  // green
+#define ENCB     3  // blue
+
+// Motor Driver connection
+// A01  brown
+// A02  red
 
 // Quarz clock pins
 #define FREQ       6
 
 // Step up supply control pin
 #define SUPPLY     7
+
+// I2C
+#define I2C_TARGET      8
+#define OFFSET_HIGH     1
+#define OFFSET_LOW      2
+#define UPDATE_OFFSET   3
+
+// Undervoltage limit
+#define VLIMIT      7.5           //unit: V
+#define ADLIMIT     63*VLIMIT
 
 
 /*                DESCRIPTION
@@ -49,9 +63,18 @@ battery for a longer period of time.
 To increase the accuracy of the position measurement, the 
 magnet and the encoder have been moved from the worm-gear
 axis to the axis of one of the cogs inside the gear which
-connects the dc-motor with the worm-gear axis. */
+connects the dc-motor with the worm-gear axis.
+
+Because the timing could still be off by a few ticks, there
+is now a I2C-link between the ardu and the PIC so that the
+user can send timing corrections via serial input to the 
+external clock board. Those will be saved in the EEPROM
+there. The timing should be fine though, as the assembler-
+code of the program has been analyzed to ensure the desired
+timing is achieved as closely as possible. */
 
 
+#include <Wire.h>
 #include <avr/sleep.h>
 #include <avr/power.h>
 
@@ -85,9 +108,6 @@ void setup()
   // very first thing: pull step-down enable pin low
   setupSupply();
   
-  // introduce yourself
-  serialIntro();
-  
   pinMode(A4,OUTPUT);
   pinMode(A5,OUTPUT);
   digitalWrite(A4, HIGH);
@@ -103,6 +123,16 @@ void setup()
   
   // set 10 bit pwm resolution on pin 10
   setupPWM16();
+  
+  // start serial once and have it running all the time
+  // don't attempt to start it earlier, will not work!
+  Serial.begin(115200);
+  
+  // join I2C bus as master
+  Wire.begin();
+  
+  // introduce yourself
+  serialIntro();
   
 }
 
@@ -139,19 +169,20 @@ void loop()
       digitalWrite(AIN2, HIGH);
     }
     
-    // integrator limits
-    if (integrator > 30)
+    // integrator limit
+    int intlimit = 200;
+    if (integrator > intlimit)
     {
-      integrator = 30;
+      integrator = intlimit;
     }
-    else if (integrator < -30)
+    else if (integrator < -intlimit)
     {
-      integrator = -30;
+      integrator = -intlimit;
     }
     
     analogWrite16(10, output);
     
-    Serial.begin(115200);
+    //Serial.begin(115200);
     Serial.print(des_pos);
     Serial.print('\t');
     Serial.print(encoder);
@@ -164,9 +195,9 @@ void loop()
     Serial.print('\t');
     Serial.print(analogRead(A0));
     Serial.print('\n');
-    Serial.end();
+    //Serial.end();
     
-    if (analogRead(A0) < 721)
+    if (analogRead(A0) < ADLIMIT)
     {
       undervolt_count++;
       
@@ -202,5 +233,54 @@ void loop()
     }
       
     work = false;
+  }
+  else
+  {
+    // nothing to do with controlling, so check if serial
+    // data is available to read
+    if (Serial.available() > 0)
+    {
+      // read transmitted data as int16
+      int16_t newOffset = Serial.parseInt();
+      int16_t returnedOffset = 0;
+      
+      // print out separator
+      Serial.println("");
+      Serial.println("========================================");
+      
+      // confirm reception of data
+      Serial.print("Int received on Ardu: ");
+      Serial.println(newOffset,DEC);
+      
+      // send data and read back to confirm
+      Serial.print("Sending Offset: ");
+      Serial.println(newOffset);
+      
+      I2C_sendOffset(newOffset);
+    
+      delayMicroseconds(1000);
+      
+      returnedOffset = I2C_readOffset();
+      
+      Serial.print("Returned Offset: ");
+      Serial.println(returnedOffset);
+      
+      // check if data was transmitted correctly
+      if (newOffset == returnedOffset)
+      {
+        Serial.println("Success!");
+      }
+      else
+      {
+        Serial.println("Something went wrong with I2C transmission!");
+      }
+      
+      // print out separator
+      Serial.println("========================================");
+      Serial.println("");
+      
+      // give user time to read
+      delay(1500);
+    }
   }
 }

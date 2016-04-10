@@ -19,16 +19,18 @@ void setupSupply()
 // introduce yourself
 void serialIntro()
 {
-  Serial.begin(115200);
+  //Serial.begin(115200);
   Serial.println("========================================");
-  Serial.println("Revisison: _05_Stativ_GearMot_MagOnMotor");
+  Serial.println("Revisison: _06_Stativ_GearMot_MagOnMotor_I2C");
   Serial.print("kp = ");
   Serial.print(kp);
   Serial.print("  |  ki = ");
   Serial.println(ki);
+  Serial.print("Current clock-module offset: ");
+  Serial.println(I2C_readOffset());
   Serial.println("========================================\n");
   Serial.println("des\tmeas\terr\tint\tout\tanlg\t");
-  Serial.end();
+  //Serial.end();
 }
 
 void gearMotorSetup()
