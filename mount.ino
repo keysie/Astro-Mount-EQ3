@@ -12,6 +12,10 @@
 // A01  brown
 // A02  red
 
+// I2C Connection (given by wire library)
+// A04	SDA
+// A05	SCL
+
 // Quarz clock pins
 #define FREQ       6
 
@@ -108,6 +112,7 @@ void setup()
   // very first thing: pull step-down enable pin low
   setupSupply();
   
+  // set I2C pins to high for initialization
   pinMode(A4,OUTPUT);
   pinMode(A5,OUTPUT);
   digitalWrite(A4, HIGH);
