@@ -44,7 +44,12 @@ This configuration, enables the arduino to push said enable
 pin to high in case the battery voltage drops too low. 
 The module then shuts down and the entire system is - 
 and stays - powered off until the user disconnects the
-battery for a longer period of time. */
+battery for a longer period of time.
+
+To increase the accuracy of the position measurement, the 
+magnet and the encoder have been moved from the worm-gear
+axis to the axis of one of the cogs inside the gear which
+connects the dc-motor with the worm-gear axis. */
 
 
 #include <avr/sleep.h>
@@ -68,8 +73,8 @@ long int encoder = 0;   // measured encoder position
 long int des_pos = 0;   // desired encoder position
 
 int error = 0;          // controller variables
-int kp = 5;
-int ki = 1;
+int kp = 9;
+int ki = 2;
 int integrator = 0;
 int output = 0;
 
@@ -79,6 +84,14 @@ void setup()
 {
   // very first thing: pull step-down enable pin low
   setupSupply();
+  
+  // introduce yourself
+  serialIntro();
+  
+  pinMode(A4,OUTPUT);
+  pinMode(A5,OUTPUT);
+  digitalWrite(A4, HIGH);
+  digitalWrite(A5, HIGH);
   
   // interrupt on change
   pciSetup(2);
@@ -102,7 +115,17 @@ void loop()
     
     integrator += error * ki;
     
-    output = (error * kp + integrator) *10 + 42*4;
+    output = (error * kp + integrator) + 42*4;
+    
+    // limit oiutput to 0...1024
+    if (output > 1024)
+    {
+      output = 1024;
+    }
+    else if (output < -1024)
+    {
+      output = -1024;
+    }
     
     // reverse motor-direction if output is negative
     if (output > 0)
@@ -117,13 +140,13 @@ void loop()
     }
     
     // integrator limits
-    if (integrator > 10)
+    if (integrator > 30)
     {
-      integrator = 10;
+      integrator = 30;
     }
-    else if (integrator < -10)
+    else if (integrator < -30)
     {
-      integrator = -10;
+      integrator = -30;
     }
     
     analogWrite16(10, output);
@@ -147,8 +170,13 @@ void loop()
     {
       undervolt_count++;
       
-      if (undervolt_count > 10)
+      if (undervolt_count > 100) // = ca 18 seconds
       {
+        // Output message to serial port
+        Serial.begin(115200);
+        Serial.println("Undervoltage - Shutting Down NOW!");
+        Serial.end();
+        
         // set motor driver to sleep
         digitalWrite(STBY, LOW);
         

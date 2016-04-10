@@ -15,6 +15,22 @@ void setupSupply()
 }
 
 
+
+// introduce yourself
+void serialIntro()
+{
+  Serial.begin(115200);
+  Serial.println("========================================");
+  Serial.println("Revisison: _05_Stativ_GearMot_MagOnMotor");
+  Serial.print("kp = ");
+  Serial.print(kp);
+  Serial.print("  |  ki = ");
+  Serial.println(ki);
+  Serial.println("========================================\n");
+  Serial.println("des\tmeas\terr\tint\tout\tanlg\t");
+  Serial.end();
+}
+
 void gearMotorSetup()
 {
   // Pins
