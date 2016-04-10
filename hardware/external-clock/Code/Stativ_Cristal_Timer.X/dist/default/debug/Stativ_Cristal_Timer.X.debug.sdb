@@ -1,0 +1,550 @@
+[p LITE_MODE AUTOSTATIC LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F13K22 ]
+[d frameptr 4065 ]
+"118 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/i2c.c
+[e E3909 . `uc
+I2C_SLAVE_WRITE_REQUEST 0
+I2C_SLAVE_READ_REQUEST 1
+I2C_SLAVE_WRITE_COMPLETED 2
+I2C_SLAVE_READ_COMPLETED 3
+]
+"169
+[e E3946 . `uc
+SLAVE_NORMAL_DATA 0
+SLAVE_DATA_ADDRESS 1
+]
+"63 /opt/microchip/xc8/v1.34/sources/common/double.c
+[v ___flpack __flpack `(d  1 e 3 0 ]
+"88 /opt/microchip/xc8/v1.34/sources/common/fladd.c
+[v ___fladd __fladd `(d  1 e 3 0 ]
+"54 /opt/microchip/xc8/v1.34/sources/common/fldiv.c
+[v ___fldiv __fldiv `(d  1 e 3 0 ]
+"62 /opt/microchip/xc8/v1.34/sources/common/flmul.c
+[v ___flmul __flmul `(d  1 e 3 0 ]
+"62 /opt/microchip/xc8/v1.34/sources/common/float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"20 /opt/microchip/xc8/v1.34/sources/common/flsub.c
+[v ___flsub __flsub `(d  1 e 3 0 ]
+"86 /opt/microchip/xc8/v1.34/sources/common/ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"54 /opt/microchip/xc8/v1.34/sources/common/ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 3 0 ]
+"62 /opt/microchip/xc8/v1.34/sources/common/ftmul.c
+[v ___ftmul __ftmul `(f  1 e 3 0 ]
+"20 /opt/microchip/xc8/v1.34/sources/common/ftsub.c
+[v ___ftsub __ftsub `(f  1 e 3 0 ]
+"15 /opt/microchip/xc8/v1.34/sources/common/Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"13 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/main.c
+[v _setup setup `(v  1 e 0 0 ]
+"36
+[v _main main `(i  1 e 2 0 ]
+"86 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/i2c.c
+[v _I2C_Initialize I2C_Initialize `(v  1 e 0 0 ]
+"106
+[v _I2C_ISR I2C_ISR `(v  1 e 0 0 ]
+"159
+[v _I2C_StatusCallback I2C_StatusCallback `(v  1 e 0 0 ]
+"52 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/interrupt_manager.c
+[v _INTERRUPT_Initialize INTERRUPT_Initialize `(v  1 e 0 0 ]
+"68
+[v _INTERRUPT_InterruptManagerHigh INTERRUPT_InterruptManagerHigh `II(v  1 e 0 0 ]
+"75
+[v _INTERRUPT_InterruptManagerLow INTERRUPT_InterruptManagerLow `IIL(v  1 e 0 0 ]
+"102 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/mcc.c
+[v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 0 0 ]
+"110
+[v _OSCILLATOR_Initialize OSCILLATOR_Initialize `(v  1 e 0 0 ]
+"58 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/memory.c
+[v _FLASH_ReadByte FLASH_ReadByte `(uc  1 e 1 0 ]
+"89
+[v _FLASH_WriteBlock FLASH_WriteBlock `(c  1 e 1 0 ]
+"132
+[v _FLASH_EraseBlock FLASH_EraseBlock `(v  1 e 0 0 ]
+"154
+[v _DATAEE_WriteByte DATAEE_WriteByte `(v  1 e 0 0 ]
+"174
+[v _DATAEE_ReadByte DATAEE_ReadByte `(uc  1 e 1 0 ]
+"50 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/pin_manager.c
+[v _PIN_MANAGER_Initialize PIN_MANAGER_Initialize `(v  1 e 0 0 ]
+"65 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/tmr0.c
+[v _TMR0_Initialize TMR0_Initialize `(v  1 e 0 0 ]
+"90
+[v _TMR0_StartTimer TMR0_StartTimer `(v  1 e 0 0 ]
+"125
+[v _TMR0_ISR TMR0_ISR `(v  1 e 0 0 ]
+"142
+[v _TMR0_CallBack TMR0_CallBack `(v  1 e 0 0 ]
+"379 /opt/microchip/xc8/v1.34/include/pic18f13k22.h
+[v _SSPMSK SSPMSK `VEuc  1 e 1 @3951 ]
+"547
+[v _WPUA WPUA `VEuc  1 e 1 @3959 ]
+"604
+[v _WPUB WPUB `VEuc  1 e 1 @3960 ]
+"755
+[v _ANSEL ANSEL `VEuc  1 e 1 @3966 ]
+"874
+[v _ANSELH ANSELH `VEuc  1 e 1 @3967 ]
+"1603
+[v _LATA LATA `VEuc  1 e 1 @3977 ]
+[s S114 . 1 `uc 1 LATA0 1 0 :1:0 
+`uc 1 LATA1 1 0 :1:1 
+`uc 1 LATA2 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 LATA4 1 0 :1:4 
+`uc 1 LATA5 1 0 :1:5 
+]
+"1653
+[s S121 . 1 `uc 1 LA0 1 0 :1:0 
+]
+[s S123 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 LA1 1 0 :1:1 
+]
+[s S126 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 LA2 1 0 :1:2 
+]
+[s S129 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 LA3 1 0 :1:3 
+]
+[s S132 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 LA4 1 0 :1:4 
+]
+[s S135 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 LA5 1 0 :1:5 
+]
+[s S138 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 LA6 1 0 :1:6 
+]
+[s S141 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 LA7 1 0 :1:7 
+]
+[s S144 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 LATA7 1 0 :1:7 
+]
+[u S147 . 1 `S114 1 . 1 0 `S121 1 . 1 0 `S123 1 . 1 0 `S126 1 . 1 0 `S129 1 . 1 0 `S132 1 . 1 0 `S135 1 . 1 0 `S138 1 . 1 0 `S141 1 . 1 0 `S144 1 . 1 0 ]
+[v _LATAbits LATAbits `VES147  1 e 1 @3977 ]
+"1727
+[v _LATB LATB `VEuc  1 e 1 @3978 ]
+"1836
+[v _LATC LATC `VEuc  1 e 1 @3979 ]
+"1968
+[v _TRISA TRISA `VEuc  1 e 1 @3986 ]
+"2121
+[v _TRISB TRISB `VEuc  1 e 1 @3987 ]
+"2250
+[v _TRISC TRISC `VEuc  1 e 1 @3988 ]
+"2471
+[v _OSCTUNE OSCTUNE `VEuc  1 e 1 @3995 ]
+[s S387 . 1 `uc 1 TMR1IE 1 0 :1:0 
+`uc 1 TMR2IE 1 0 :1:1 
+`uc 1 CCP1IE 1 0 :1:2 
+`uc 1 SSPIE 1 0 :1:3 
+`uc 1 TXIE 1 0 :1:4 
+`uc 1 RCIE 1 0 :1:5 
+`uc 1 ADIE 1 0 :1:6 
+]
+"2564
+[s S395 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 RC1IE 1 0 :1:5 
+]
+[s S398 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 TX1IE 1 0 :1:4 
+]
+[u S401 . 1 `S387 1 . 1 0 `S395 1 . 1 0 `S398 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES401  1 e 1 @3997 ]
+[s S420 . 1 `uc 1 TMR1IF 1 0 :1:0 
+`uc 1 TMR2IF 1 0 :1:1 
+`uc 1 CCP1IF 1 0 :1:2 
+`uc 1 SSPIF 1 0 :1:3 
+`uc 1 TXIF 1 0 :1:4 
+`uc 1 RCIF 1 0 :1:5 
+`uc 1 ADIF 1 0 :1:6 
+]
+"2637
+[s S428 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 RC1IF 1 0 :1:5 
+]
+[s S431 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 TX1IF 1 0 :1:4 
+]
+[u S434 . 1 `S420 1 . 1 0 `S428 1 . 1 0 `S431 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES434  1 e 1 @3998 ]
+[s S303 . 1 `uc 1 TMR1IP 1 0 :1:0 
+`uc 1 TMR2IP 1 0 :1:1 
+`uc 1 CCP1IP 1 0 :1:2 
+`uc 1 SSPIP 1 0 :1:3 
+`uc 1 TXIP 1 0 :1:4 
+`uc 1 RCIP 1 0 :1:5 
+`uc 1 ADIP 1 0 :1:6 
+]
+"2710
+[s S311 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 RC1IP 1 0 :1:5 
+]
+[s S314 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 TX1IP 1 0 :1:4 
+]
+[u S317 . 1 `S303 1 . 1 0 `S311 1 . 1 0 `S314 1 . 1 0 ]
+[v _IPR1bits IPR1bits `VES317  1 e 1 @3999 ]
+[s S887 . 1 `uc 1 RD 1 0 :1:0 
+`uc 1 WR 1 0 :1:1 
+`uc 1 WREN 1 0 :1:2 
+`uc 1 WRERR 1 0 :1:3 
+`uc 1 FREE 1 0 :1:4 
+`uc 1 . 1 0 :1:5 
+`uc 1 CFGS 1 0 :1:6 
+`uc 1 EEPGD 1 0 :1:7 
+]
+"2960
+[s S896 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 EEFS 1 0 :1:6 
+]
+[u S899 . 1 `S887 1 . 1 0 `S896 1 . 1 0 ]
+[v _EECON1bits EECON1bits `VES899  1 e 1 @4006 ]
+"3004
+[v _EECON2 EECON2 `VEuc  1 e 1 @4007 ]
+"3010
+[v _EEDATA EEDATA `VEuc  1 e 1 @4008 ]
+"3016
+[v _EEADR EEADR `VEuc  1 e 1 @4009 ]
+"4780
+[v _SSPCON2 SSPCON2 `VEuc  1 e 1 @4037 ]
+[s S741 . 1 `uc 1 SEN 1 0 :1:0 
+`uc 1 RSEN 1 0 :1:1 
+`uc 1 PEN 1 0 :1:2 
+`uc 1 RCEN 1 0 :1:3 
+`uc 1 ACKEN 1 0 :1:4 
+`uc 1 ACKDT 1 0 :1:5 
+`uc 1 ACKSTAT 1 0 :1:6 
+`uc 1 GCEN 1 0 :1:7 
+]
+"4797
+[u S750 . 1 `S741 1 . 1 0 ]
+[v _SSPCON2bits SSPCON2bits `VES750  1 e 1 @4037 ]
+"4841
+[v _SSPCON1 SSPCON1 `VEuc  1 e 1 @4038 ]
+[s S772 . 1 `uc 1 SSPM 1 0 :4:0 
+`uc 1 CKP 1 0 :1:4 
+`uc 1 SSPEN 1 0 :1:5 
+`uc 1 SSPOV 1 0 :1:6 
+`uc 1 WCOL 1 0 :1:7 
+]
+"4861
+[s S778 . 1 `uc 1 SSPM0 1 0 :1:0 
+`uc 1 SSPM1 1 0 :1:1 
+`uc 1 SSPM2 1 0 :1:2 
+`uc 1 SSPM3 1 0 :1:3 
+]
+[u S783 . 1 `S772 1 . 1 0 `S778 1 . 1 0 ]
+[v _SSPCON1bits SSPCON1bits `VES783  1 e 1 @4038 ]
+"4910
+[v _SSPSTAT SSPSTAT `VEuc  1 e 1 @4039 ]
+[s S595 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R_NOT_W 1 0 :1:2 
+]
+"4997
+[s S598 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 D_NOT_A 1 0 :1:5 
+]
+[s S601 . 1 `uc 1 BF 1 0 :1:0 
+`uc 1 UA 1 0 :1:1 
+`uc 1 R_nW 1 0 :1:2 
+`uc 1 S 1 0 :1:3 
+`uc 1 P 1 0 :1:4 
+`uc 1 D_nA 1 0 :1:5 
+`uc 1 CKE 1 0 :1:6 
+`uc 1 SMP 1 0 :1:7 
+]
+[s S610 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 D 1 0 :1:5 
+]
+[s S615 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 W 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 A 1 0 :1:5 
+]
+[s S620 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nW 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 nA 1 0 :1:5 
+]
+[s S625 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 R_W 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 D_A 1 0 :1:5 
+]
+[s S630 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 NOT_WRITE 1 0 :1:2 
+]
+[s S633 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 NOT_ADDRESS 1 0 :1:5 
+]
+[s S636 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nWRITE 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 nADDRESS 1 0 :1:5 
+]
+[s S641 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 DA 1 0 :1:5 
+]
+[s S644 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 RW 1 0 :1:2 
+]
+[s S647 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 START 1 0 :1:3 
+]
+[s S650 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 STOP 1 0 :1:4 
+]
+[s S653 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 NOT_W 1 0 :1:2 
+]
+[s S656 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 NOT_A 1 0 :1:5 
+]
+[u S659 . 1 `S595 1 . 1 0 `S598 1 . 1 0 `S601 1 . 1 0 `S610 1 . 1 0 `S615 1 . 1 0 `S620 1 . 1 0 `S625 1 . 1 0 `S630 1 . 1 0 `S633 1 . 1 0 `S636 1 . 1 0 `S641 1 . 1 0 `S644 1 . 1 0 `S647 1 . 1 0 `S650 1 . 1 0 `S653 1 . 1 0 `S656 1 . 1 0 ]
+[v _SSPSTATbits SSPSTATbits `VES659  1 e 1 @4039 ]
+"5141
+[v _SSPADD SSPADD `VEuc  1 e 1 @4040 ]
+"5147
+[v _SSPBUF SSPBUF `VEuc  1 e 1 @4041 ]
+[s S236 . 1 `uc 1 NOT_BOR 1 0 :1:0 
+]
+"5503
+[s S238 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 NOT_POR 1 0 :1:1 
+]
+[s S241 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 NOT_PD 1 0 :1:2 
+]
+[s S244 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 NOT_TO 1 0 :1:3 
+]
+[s S247 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 NOT_RI 1 0 :1:4 
+]
+[s S250 . 1 `uc 1 nBOR 1 0 :1:0 
+`uc 1 nPOR 1 0 :1:1 
+`uc 1 nPD 1 0 :1:2 
+`uc 1 nTO 1 0 :1:3 
+`uc 1 nRI 1 0 :1:4 
+`uc 1 . 1 0 :1:5 
+`uc 1 SBOREN 1 0 :1:6 
+`uc 1 IPEN 1 0 :1:7 
+]
+[s S259 . 1 `uc 1 BOR 1 0 :1:0 
+`uc 1 POR 1 0 :1:1 
+`uc 1 PD 1 0 :1:2 
+`uc 1 TO 1 0 :1:3 
+`uc 1 RI 1 0 :1:4 
+]
+[u S265 . 1 `S236 1 . 1 0 `S238 1 . 1 0 `S241 1 . 1 0 `S244 1 . 1 0 `S247 1 . 1 0 `S250 1 . 1 0 `S259 1 . 1 0 ]
+[v _RCONbits RCONbits `VES265  1 e 1 @4048 ]
+"5619
+[v _OSCCON2 OSCCON2 `VEuc  1 e 1 @4050 ]
+"5650
+[v _OSCCON OSCCON `VEuc  1 e 1 @4051 ]
+"5732
+[v _T0CON T0CON `VEuc  1 e 1 @4053 ]
+[s S84 . 1 `uc 1 T0PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+`uc 1 T08BIT 1 0 :1:6 
+`uc 1 TMR0ON 1 0 :1:7 
+]
+"5752
+[s S91 . 1 `uc 1 T0PS0 1 0 :1:0 
+`uc 1 T0PS1 1 0 :1:1 
+`uc 1 T0PS2 1 0 :1:2 
+]
+[u S95 . 1 `S84 1 . 1 0 `S91 1 . 1 0 ]
+[v _T0CONbits T0CONbits `VES95  1 e 1 @4053 ]
+"5807
+[v _TMR0L TMR0L `VEuc  1 e 1 @4054 ]
+"5813
+[v _TMR0H TMR0H `VEuc  1 e 1 @4055 ]
+[s S336 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 NOT_RABPU 1 0 :1:7 
+]
+"6183
+[s S339 . 1 `uc 1 RABIP 1 0 :1:0 
+`uc 1 . 1 0 :1:1 
+`uc 1 TMR0IP 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 INTEDG2 1 0 :1:4 
+`uc 1 INTEDG1 1 0 :1:5 
+`uc 1 INTEDG0 1 0 :1:6 
+`uc 1 nRABPU 1 0 :1:7 
+]
+[s S348 . 1 `uc 1 RBIP 1 0 :1:0 
+`uc 1 . 1 0 :6:1 
+`uc 1 RABPU 1 0 :1:7 
+]
+[s S352 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 NOT_RBPU 1 0 :1:7 
+]
+[s S355 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 nRBPU 1 0 :1:7 
+]
+[u S358 . 1 `S336 1 . 1 0 `S339 1 . 1 0 `S348 1 . 1 0 `S352 1 . 1 0 `S355 1 . 1 0 ]
+[v _INTCON2bits INTCON2bits `VES358  1 e 1 @4081 ]
+[s S24 . 1 `uc 1 RABIF 1 0 :1:0 
+`uc 1 INT0IF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 RABIE 1 0 :1:3 
+`uc 1 INT0IE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 PEIE_GIEL 1 0 :1:6 
+`uc 1 GIE_GIEH 1 0 :1:7 
+]
+"6278
+[s S33 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INT0F 1 0 :1:1 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INT0E 1 0 :1:4 
+`uc 1 T0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+[s S42 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 GIEL 1 0 :1:6 
+`uc 1 GIEH 1 0 :1:7 
+]
+[s S46 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 PIE 1 0 :1:6 
+]
+[u S49 . 1 `S24 1 . 1 0 `S33 1 . 1 0 `S42 1 . 1 0 `S46 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES49  1 e 1 @4082 ]
+"6395
+[v _TABLAT TABLAT `VEuc  1 e 1 @4085 ]
+"6409
+[v _TBLPTRL TBLPTRL `VEuc  1 e 1 @4086 ]
+"6415
+[v _TBLPTRH TBLPTRH `VEuc  1 e 1 @4087 ]
+"6421
+[v _TBLPTRU TBLPTRU `VEuc  1 e 1 @4088 ]
+"69 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/i2c.c
+[v _I2C_slaveWriteData I2C_slaveWriteData `VEuc  1 e 1 0 ]
+"58 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/tmr0.c
+[v _timer0ReloadVal16bit timer0ReloadVal16bit `VEui  1 e 2 0 ]
+"18 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/variables.h
+[v _toggle toggle `uc  1 e 1 0 ]
+"19
+[v _preloadOffsetH preloadOffsetH `uc  1 e 1 0 ]
+"20
+[v _preloadOffsetL preloadOffsetL `uc  1 e 1 0 ]
+"21
+[v _preloadOffset preloadOffset `i  1 e 2 0 ]
+"36 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/main.c
+[v _main main `(i  1 e 2 0 ]
+{
+"47
+} 0
+"13
+[v _setup setup `(v  1 e 0 0 ]
+{
+"31
+} 0
+"102 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/mcc.c
+[v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 0 0 ]
+{
+"108
+} 0
+"65 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/tmr0.c
+[v _TMR0_Initialize TMR0_Initialize `(v  1 e 0 0 ]
+{
+"88
+} 0
+"90
+[v _TMR0_StartTimer TMR0_StartTimer `(v  1 e 0 0 ]
+{
+"93
+} 0
+"50 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/pin_manager.c
+[v _PIN_MANAGER_Initialize PIN_MANAGER_Initialize `(v  1 e 0 0 ]
+{
+"69
+} 0
+"110 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/mcc.c
+[v _OSCILLATOR_Initialize OSCILLATOR_Initialize `(v  1 e 0 0 ]
+{
+"119
+} 0
+"52 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/interrupt_manager.c
+[v _INTERRUPT_Initialize INTERRUPT_Initialize `(v  1 e 0 0 ]
+{
+"66
+} 0
+"86 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/i2c.c
+[v _I2C_Initialize I2C_Initialize `(v  1 e 0 0 ]
+{
+"104
+} 0
+"174 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/memory.c
+[v _DATAEE_ReadByte DATAEE_ReadByte `(uc  1 e 1 0 ]
+{
+[v DATAEE_ReadByte@bAdd bAdd `uc  1 a 1 wreg ]
+[v DATAEE_ReadByte@bAdd bAdd `uc  1 a 1 wreg ]
+[v DATAEE_ReadByte@bAdd bAdd `uc  1 a 1 40 ]
+"183
+} 0
+"75 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/interrupt_manager.c
+[v _INTERRUPT_InterruptManagerLow INTERRUPT_InterruptManagerLow `IIL(v  1 e 0 0 ]
+{
+"82
+} 0
+"125 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/tmr0.c
+[v _TMR0_ISR TMR0_ISR `(v  1 e 0 0 ]
+{
+"140
+} 0
+"142
+[v _TMR0_CallBack TMR0_CallBack `(v  1 e 0 0 ]
+{
+"156
+} 0
+"68 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/interrupt_manager.c
+[v _INTERRUPT_InterruptManagerHigh INTERRUPT_InterruptManagerHigh `II(v  1 e 0 0 ]
+{
+"73
+} 0
+"106 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/i2c.c
+[v _I2C_ISR I2C_ISR `(v  1 e 0 0 ]
+{
+"107
+[v I2C_ISR@i2c_data i2c_data `uc  1 a 1 25 ]
+"137
+} 0
+"159
+[v _I2C_StatusCallback I2C_StatusCallback `(v  1 e 0 0 ]
+{
+[v I2C_StatusCallback@i2c_bus_state i2c_bus_state `E3909  1 a 1 wreg ]
+[v I2C_StatusCallback@i2c_bus_state i2c_bus_state `E3909  1 a 1 wreg ]
+"161
+[v I2C_StatusCallback@EEPROM_Buffer EEPROM_Buffer `[64]uc  1 s 64 EEPROM_Buffer ]
+"168
+[v I2C_StatusCallback@command command `uc  1 s 1 command ]
+"169
+[v I2C_StatusCallback@slaveWriteType slaveWriteType `uc  1 s 1 slaveWriteType ]
+"159
+[v I2C_StatusCallback@i2c_bus_state i2c_bus_state `E3909  1 a 1 24 ]
+"257
+} 0
+"154 /home/keysie/MPLABXProjects/Stativ_Cristal_Timer.X/mcc_generated_files/memory.c
+[v _DATAEE_WriteByte DATAEE_WriteByte `(v  1 e 0 0 ]
+{
+[v DATAEE_WriteByte@bAdd bAdd `uc  1 a 1 wreg ]
+"155
+[v DATAEE_WriteByte@GIEBitValue GIEBitValue `uc  1 a 1 21 ]
+"154
+[v DATAEE_WriteByte@bAdd bAdd `uc  1 a 1 wreg ]
+[v DATAEE_WriteByte@bData bData `uc  1 p 1 19 ]
+[v DATAEE_WriteByte@bAdd bAdd `uc  1 a 1 20 ]
+"172
+} 0
