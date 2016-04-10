@@ -7,6 +7,12 @@ void pciSetup(byte pin)
 }
 
 
+// enable supply pin
+void setupSupply()
+{
+  pinMode(SUPPLY, OUTPUT);
+  digitalWrite(SUPPLY, HIGH);
+}
 
 
 void gearMotorSetup()

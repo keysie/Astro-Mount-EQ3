@@ -7,11 +7,13 @@
 // Encoder pins
 #define ENCA     2
 #define ENCB     3
-#define ENCP    A4 //plus
-#define ENCM    A5 //minus
 
 // Quarz clock pins
 #define FREQ       6
+
+// Step up supply control pin
+#define SUPPLY     7
+
 
 /*                DESCRIPTION
 
@@ -28,7 +30,21 @@ such as desired vs measured position etc. on serial on
 115200 baud. It also measures the battery voltage via
 an analog in hooked to a voltage divider to determine
 when the connected battery is empty. It then stops
-automatically and goes to deep sleep. */
+automatically and goes to deep sleep.
+
+To conserve more energy, the aruino uno onboard linear
+voltage regulator has been removed physically and been
+replaced by a separate DC/DC step-down converter module.
+This module has been modified to only run for a short 
+period of time after power-on, and then shut-down and
+inhibit itself if the arduino does not immediately pull
+down the module's enable pin. 
+
+This configuration, enables the arduino to push said enable
+pin to high in case the battery voltage drops too low. 
+The module then shuts down and the entire system is - 
+and stays - powered off until the user disconnects the
+battery for a longer period of time. */
 
 
 #include <avr/sleep.h>
@@ -61,6 +77,9 @@ int output = 0;
 
 void setup()
 {
+  // very first thing: pull step-down enable pin low
+  setupSupply();
+  
   // interrupt on change
   pciSetup(2);
   pciSetup(3);
@@ -71,12 +90,6 @@ void setup()
   
   // set 10 bit pwm resolution on pin 10
   setupPWM16();
-  
-  // power encoder through A5 and A4
-  pinMode(ENCP, OUTPUT);
-  pinMode(ENCM, OUTPUT);
-  digitalWrite(ENCP, HIGH);
-  digitalWrite(ENCM, LOW);
   
 }
 
@@ -142,9 +155,9 @@ void loop()
         // make sure LED on pin 13 is out
         digitalWrite(13, LOW);
         
-        // disable power to encoder
-        pinMode(ENCP, INPUT);
-        pinMode(ENCM, INPUT);
+        // disable step down module
+        // this will terminate 5V supply!
+        digitalWrite(SUPPLY, LOW);
         
         // disable interrupts
         cli();
