@@ -6,6 +6,6 @@ This project is a DIY improvement for a cheap EQ3-like equatorial telescope moun
 
 ## Verifying code and author ##
 
-My (keysie) public gpg key is stored within this repository as a raw blob. It is tagged by tag *gpg-public*. To add it to your gpg keyring, use
+My (keysie) public gpg key is stored within this repository as a textfile. It is tagged by tag *gpg-public*. To add it to your gpg keyring, use
 
 `git cat-file blob gpg-public | gpg --import`
